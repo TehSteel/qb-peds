@@ -56,21 +56,21 @@ CreateThread(function()
 	while true do
 		Wait(500)
 		for i = 1, #Config.PedList, 1 do
-			local pedData = Config.PedList[i]
-			if pedData then
+			local v = Config.PedList[i]
+			if v then
 				local playerCoords = GetEntityCoords(cache.ped)
-				local distance = #(playerCoords - pedData[i].coords.xyz)
+				local distance = #(playerCoords - v.coords.xyz)
 	
 				if distance < Config.DistanceSpawn and not spawnedPeds[i] then
-					local spawnedPed = nearPed(pedData[i].model, pedData[i].coords, pedData[i].gender, pedData[i].animDict, pedData[i].animName, pedData[i].scenario)
+					local spawnedPed = nearPed(v.model, v.coords, v.gender, v.animDict, v.animName, v.scenario)
 					spawnedPeds[i] = { spawnedPed = spawnedPed }
 				end
 	
 				if distance >= Config.DistanceSpawn and spawnedPeds[i] then
 					if Config.FadeIn then
-						for i = 255, 0, -51 do
+						for j = 255, 0, -51 do
 							Wait(50)
-							SetEntityAlpha(spawnedPeds[i].spawnedPed, i, false)
+							SetEntityAlpha(spawnedPeds[i].spawnedPed, j, false)
 						end
 					end
 					DeletePed(spawnedPeds[i].spawnedPed)
